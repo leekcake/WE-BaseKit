@@ -1,33 +1,24 @@
-plugins {
-    id 'kotlin-multiplatform' version '1.3.0'
-}
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-kotlin {
-    targets {
-        fromPreset(presets.jvm, 'jvm')
-        fromPreset(presets.js, 'js')
+buildscript {
+    ext.kotlin_version = '1.3.0'
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url "https://dl.bintray.com/kotlin/kotlin-dev/"
+        }
     }
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
-                implementation 'moe.leekcake:WE-BaseKit-metadata:0.1'
-            }
-        }
-        jvmMain {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-                implementation 'moe.leekcake:WE-BaseKit-jvm:0.1'
-            }
-        }
-        jsMain {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
-                implementation 'moe.leekcake:WE-BaseKit-js:0.1'
-            }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    ext.kotlin_version = '1.3.0'
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url "https://dl.bintray.com/kotlin/kotlin-dev/"
         }
     }
 }

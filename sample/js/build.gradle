@@ -1,0 +1,29 @@
+apply plugin: 'kotlin-platform-js'
+apply plugin: 'kotlin2js'
+
+compileKotlin2Js {
+    kotlinOptions.outputFile = "${projectDir}/result/output.js"
+    kotlinOptions.moduleKind = "amd"
+    kotlinOptions.sourceMap = true
+}
+
+def jsFileFilter = { fileTreeElement ->
+    def path = fileTreeElement.path
+    path.endsWith(".js") && (path.startsWith("META-INF/resources/") || !path.startsWith("META-INF/"))
+}
+
+build.doLast() {
+    configurations.compile.each { File file ->
+        copy {
+            includeEmptyDirs = false
+            from zipTree(file.absolutePath)
+            into "${project.rootDir}/result/js"
+            include(jsFileFilter)
+        }
+    }
+}
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    expectedBy project(':common')
+    compile "WE-BaseKit:js"
+}

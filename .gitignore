@@ -4,8 +4,10 @@
 /sample/.gradle
 /sample/builder
 
-/build
-/sample/build
+build/
+out/
+/sample/result/project.json
+/sample/result/js
 
 # Compiled class file
 *.class

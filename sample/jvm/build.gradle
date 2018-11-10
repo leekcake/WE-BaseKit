@@ -1,0 +1,7 @@
+apply plugin: 'kotlin-platform-jvm'
+apply plugin: 'kotlin'
+
+dependencies {
+    expectedBy project(":common")
+    compile "WE-BaseKit:jvm"
+}
