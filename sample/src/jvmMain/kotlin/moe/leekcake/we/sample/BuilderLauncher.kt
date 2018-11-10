@@ -5,5 +5,5 @@ import java.io.File
 
 fun main(args: Array<String>) {
     val builder = Builder(SampleProject())
-    builder.build( File("./builder") )
+    builder.build( File("./result") )
 }
