@@ -11,15 +11,12 @@ fun baseSave(configure: Configure): JSONObject {
 }
 
 fun Configure.save(): JSONObject {
-    if(this is ColorConfigure) {
-        return this.save()
-    } else if(this is BoolConfigure) {
-        return this.save()
-    } else if(this is SliderConfigure) {
-        return this.save()
+    return when {
+        this is ColorConfigure -> this.save()
+        this is BoolConfigure -> this.save()
+        this is SliderConfigure -> this.save()
+        else -> baseSave(this)
     }
-
-    return baseSave(this)
 }
 
 fun ColorConfigure.save(): JSONObject {
