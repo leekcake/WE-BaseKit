@@ -30,8 +30,8 @@ class AudioManager(leader: Leader) : BaseManager<Leader>(leader) {
     var lerpPowerProperty : SliderConfigure? = null
 
     override fun update() {
-        if(useLerpProperty != null && leader.getManager<ConfigureManager>()!!.getBoolConfigure(useLerpProperty!!)) {
-            val lerpPower = if(lerpPowerProperty != null) leader.getManager<ConfigureManager>()!!.getSilderConfigure(lerpPowerProperty!!) / 100.0
+        if(useLerpProperty != null && leader.configureManager.getBoolConfigure(useLerpProperty!!)) {
+            val lerpPower = if(lerpPowerProperty != null) leader.configureManager.getSilderConfigure(lerpPowerProperty!!) / 100.0
             else 0.39
 
             for(i in 0..latestAudioArray.size) {
