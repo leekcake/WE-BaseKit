@@ -19,7 +19,7 @@ class Builder(val project: Project) {
         val properties = JSONObject()
 
         for((order, configure) in project.configures.withIndex()) {
-            properties.append(configure.name, configure.save().put("order", order))
+            properties.put(configure.name, configure.save().put("order", order))
         }
         general.put("properties", properties)
 
