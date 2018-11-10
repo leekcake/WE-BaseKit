@@ -5,7 +5,7 @@ import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLCanvasElement
 import kotlin.browser.document
 
-abstract class CanvasManager(leader: Leader) : BaseManager<Leader>(leader) {
+abstract class CanvasManager<T : Leader>(leader: T) : BaseManager<T>(leader) {
     abstract val canvasName: String
 
     lateinit var canvas: HTMLCanvasElement
