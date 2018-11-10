@@ -36,7 +36,7 @@ class Builder(val project: Project) {
         for(lang in langMap.keys) {
             val values = JSONObject()
 
-            for(localizationData in project.localizations) {
+            for(localizationData in langMap[lang]!!) {
                 values.put(localizationData.name, localizationData.text)
             }
 
