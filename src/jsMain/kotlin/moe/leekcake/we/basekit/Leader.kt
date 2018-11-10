@@ -27,6 +27,19 @@ open class Leader(val project: Project) {
         for(manager in managers) {
             manager.init()
         }
+        requestUpdate()
+    }
+
+    val updateCallback = {
+            timestrap: Double ->
+        for(manager in managers) {
+            manager.update()
+        }
+        requestUpdate()
+    }
+
+    fun requestUpdate() {
+        window.requestAnimationFrame(updateCallback)
     }
 
     fun destroy() {
