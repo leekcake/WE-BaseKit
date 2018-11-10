@@ -25,22 +25,18 @@ class Builder(val project: Project) {
 
         val localization = JSONObject()
 
-        val langMap = HashMap<String, ArrayList<Localization>>()
-        for(localizationData in project.localizations) {
-            if(!langMap.containsKey(localizationData.lang)) {
-                langMap[localizationData.lang] = ArrayList()
+        val langMap = HashMap<String, JSONObject>()
+        for(_localization in project.localizations) {
+            for(localizationData in _localization.datas) {
+                if(!langMap.containsKey(localizationData.lang)) {
+                    langMap[localizationData.lang] = JSONObject()
+                }
+                langMap[localizationData.lang]!!.put(_localization.name, localizationData.text)
             }
-            langMap[localizationData.lang]?.add(localizationData)
         }
 
         for(lang in langMap.keys) {
-            val values = JSONObject()
-
-            for(localizationData in langMap[lang]!!) {
-                values.put(localizationData.name, localizationData.text)
-            }
-
-            localization.put(lang, values)
+            localization.put(lang, langMap[lang])
         }
 
         general.put("localization", localization)
