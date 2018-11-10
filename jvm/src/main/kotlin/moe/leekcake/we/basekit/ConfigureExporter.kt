@@ -21,10 +21,12 @@ fun Configure.save(): JSONObject {
 
 fun ColorConfigure.save(): JSONObject {
     return baseSave(this).put("value", "${colorIntToDouble(r)} ${colorIntToDouble(g)} ${colorIntToDouble(b)}")
+        .put("type", "color")
 }
 
 fun BoolConfigure.save(): JSONObject {
     return baseSave(this).put("value", bool)
+        .put("type", "bool")
 }
 
 fun SliderConfigure.save(): JSONObject {
@@ -32,4 +34,5 @@ fun SliderConfigure.save(): JSONObject {
         .put("min", min)
         .put("max", max)
         .put("editable", editable)
+        .put("type", "slider")
 }
