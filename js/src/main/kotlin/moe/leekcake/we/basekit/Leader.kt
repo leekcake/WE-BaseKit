@@ -10,7 +10,7 @@ open class Leader(val project: Project) {
 
     val configureManager = addManager(ConfigureManager(this))
 
-    fun<T : BaseManager<Leader>> addManager(manager: T): T {
+    fun<T2 : Leader, T : BaseManager<T2>> addManager(manager: T): T {
         return manager
     }
 
