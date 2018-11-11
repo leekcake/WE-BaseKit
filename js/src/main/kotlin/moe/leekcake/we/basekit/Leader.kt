@@ -30,8 +30,7 @@ open class Leader(val project: Project) {
         requestUpdate()
     }
 
-    val updateCallback = {
-            timestrap: Double ->
+    fun updateCallback(timestrap: Double) {
         for(manager in managers) {
             manager.update()
         }
@@ -39,7 +38,9 @@ open class Leader(val project: Project) {
     }
 
     fun requestUpdate() {
-        window.requestAnimationFrame(updateCallback)
+        window.requestAnimationFrame {
+            updateCallback(it)
+        }
     }
 
     fun destroy() {
