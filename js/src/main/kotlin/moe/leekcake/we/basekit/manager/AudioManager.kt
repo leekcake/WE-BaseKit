@@ -13,12 +13,15 @@ class AudioManager(leader: Leader) : BaseManager<Leader>(leader) {
     //Latest audio data
     lateinit private var latestAudioArray: Array<Double>
 
+    val audioArrayInited
+        get() = ::latestAudioArray.isInitialized && ::audioArray.isInitialized
+
     override fun init() {
         window.asDynamic().wallpaperRegisterAudioListener {
                 audio: dynamic ->
 
             latestAudioArray = audio as Array<Double>
-            if(!::audioArray.isInitialized) {
+            if(!audioArrayInited) {
                 audioArray = latestAudioArray
             }
 
@@ -30,6 +33,10 @@ class AudioManager(leader: Leader) : BaseManager<Leader>(leader) {
     var lerpPowerProperty : SliderConfigure? = null
 
     override fun update() {
+        if(!audioArrayInited) {
+            return
+        }
+
         if(useLerpProperty != null && leader.configureManager.getBoolConfigure(useLerpProperty!!)) {
             val lerpPower = if(lerpPowerProperty != null) leader.configureManager.getSilderConfigure(lerpPowerProperty!!) / 100.0
             else 0.39
