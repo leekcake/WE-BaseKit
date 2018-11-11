@@ -1,5 +1,0 @@
-include ':common', ':js', ':jvm'
-
-project(':js').name = "sampleJs"
-
-includeBuild('../')
