@@ -6,6 +6,12 @@ import moe.leekcake.we.basekit.manager.ConfigureManager
 import kotlin.browser.window
 
 open class Leader(val project: Project) {
+    init {
+        window.onload = {
+            init()
+        }
+    }
+
     val managers = ArrayList<BaseManager<*>>()
 
     val configureManager = addManager(ConfigureManager(this))
