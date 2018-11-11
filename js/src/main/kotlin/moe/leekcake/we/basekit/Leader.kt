@@ -6,11 +6,12 @@ import moe.leekcake.we.basekit.manager.ConfigureManager
 import kotlin.browser.window
 
 open class Leader(val project: Project) {
-    val managers = ArrayList<BaseManager<Leader>>()
+    val managers = ArrayList<BaseManager<*>>()
 
     val configureManager = addManager(ConfigureManager(this))
 
     fun<T2 : Leader, T : BaseManager<T2>> addManager(manager: T): T {
+        managers.add(manager)
         return manager
     }
 
