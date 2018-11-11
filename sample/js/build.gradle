@@ -1,10 +1,9 @@
 apply plugin: 'kotlin-platform-js'
-apply plugin: 'kotlin2js'
 
 compileKotlin2Js {
-    kotlinOptions.outputFile = "${projectDir}/result/output.js"
-    kotlinOptions.moduleKind = "amd"
+    kotlinOptions.metaInfo = true
     kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = 'umd'
 }
 
 def jsFileFilter = { fileTreeElement ->
@@ -17,13 +16,32 @@ build.doLast() {
         copy {
             includeEmptyDirs = false
             from zipTree(file.absolutePath)
-            into "${project.rootDir}/result/js"
+            into "${rootProject.rootDir}/result/js"
             include(jsFileFilter)
         }
     }
+
+    copy {
+        File artifact = new File("build/libs/${project.name}.jar")
+        includeEmptyDirs = false
+
+        from zipTree(artifact)
+        into "${rootProject.rootDir}/result/js"
+        include jsFileFilter
+    }
+
+    copy {
+        File artifact = new File(gradle.includedBuild("WE-BaseKit").projectDir, "js/build/libs/WE-BaseKit-js.jar")
+        includeEmptyDirs = false
+
+        from zipTree(artifact)
+        into "${rootProject.rootDir}/result/js"
+        include jsFileFilter
+    }
 }
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     expectedBy project(':common')
-    compile "WE-BaseKit:js"
+    implementation "WE-BaseKit:WE-BaseKit-js"
 }

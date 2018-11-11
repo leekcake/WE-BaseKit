@@ -1,1 +1,3 @@
 include ':common', ':js', ':jvm'
+
+project(':js').name = "WE-BaseKit-js"
