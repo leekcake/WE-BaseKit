@@ -3,6 +3,10 @@ package moe.leekcake.we.basekit
 import org.json.JSONObject
 import java.io.File
 import java.io.FileWriter
+import java.io.FileOutputStream
+import java.io.OutputStreamWriter
+import java.nio.charset.StandardCharsets
+
 
 class Builder(val project: Project) {
     fun build(outputDir: File) {
@@ -43,6 +47,7 @@ class Builder(val project: Project) {
 
         result.put("general", general)
 
-        result.write( FileWriter( File(outputDir, "project.json") ) ).close()
+        val project = File(outputDir, "project.json")
+        result.write(OutputStreamWriter(FileOutputStream(project), StandardCharsets.UTF_8)).close()
     }
 }
