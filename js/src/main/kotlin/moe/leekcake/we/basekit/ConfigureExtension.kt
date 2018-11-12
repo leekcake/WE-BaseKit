@@ -59,3 +59,14 @@ fun StringComboBoxConfigure.listen(leader: Leader, listener: (String) -> Unit) {
 fun StringComboBoxConfigure.get(leader: Leader): String {
     return leader.configureManager.getStringComboBoxConfigure(this)
 }
+
+fun TextInputConfigure.listen(leader: Leader, listener: (String) -> Unit) {
+    return leader.configureManager.registerChangeListener(this) {
+        listener.invoke(get(leader))
+    }
+}
+
+fun TextInputConfigure.get(leader: Leader): String {
+    return leader.configureManager.getTextInputConfigure(this)
+}
+

@@ -72,6 +72,13 @@ class ConfigureManager(leader: Leader) : BaseManager<Leader>(leader) {
         return dataMap[stringComboBoxConfigure.name]
     }
 
+    fun getTextInputConfigure(textInputConfigure: TextInputConfigure) : String {
+        if (!dataMap.containsKey(textInputConfigure.name)) {
+            return textInputConfigure.value
+        }
+        return dataMap[textInputConfigure.name]
+    }
+
     override fun init() {
         val listener = Any().asDynamic()
         listener.manager = this

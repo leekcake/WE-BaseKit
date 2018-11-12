@@ -17,3 +17,6 @@ class ComboBoxItem<T>(val label: String, val value: T)
 class IntComboBoxConfigure(name: String, text: String, val options: Array<ComboBoxItem<Int>>, val value: Int) : Configure(name, text)
 
 class StringComboBoxConfigure(name: String, text: String, val options: Array<ComboBoxItem<String>>, val value: String) : Configure(name, text)
+
+class TextInputConfigure(name: String, text: String, val value: String) : Configure(name, text)
+
