@@ -6,6 +6,8 @@ import kotlin.browser.window
 import kotlin.math.round
 import kotlin.math.roundToInt
 
+external fun decodeURI(encodedURI: dynamic): dynamic
+
 class ConfigureManager(leader: Leader) : BaseManager<Leader>(leader) {
     private val dataMap = HashMap<String, dynamic>()
 
@@ -39,6 +41,13 @@ class ConfigureManager(leader: Leader) : BaseManager<Leader>(leader) {
             return colorToWeb(colorConfigure.r, colorConfigure.g, colorConfigure.b)
         }
         return colorEngineToWeb(dataMap[colorConfigure.name])
+    }
+
+    fun getFileConfigure(fileConfigure: FileConfigure) : String {
+        if (!dataMap.containsKey(fileConfigure.name)) {
+            return ""
+        }
+        return "file:///${decodeURI(dataMap[fileConfigure.name])}"
     }
 
     override fun init() {

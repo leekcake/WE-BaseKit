@@ -11,3 +11,7 @@ fun BoolConfigure.get(leader: Leader): Boolean {
 fun SliderConfigure.get(leader: Leader): Int {
     return leader.configureManager.getSilderConfigure(this)
 }
+
+fun FileConfigure.get(leader: Leader): String {
+    return leader.configureManager.getFileConfigure(this)
+}

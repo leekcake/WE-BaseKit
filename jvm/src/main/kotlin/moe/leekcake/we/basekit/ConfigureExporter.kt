@@ -15,6 +15,7 @@ fun Configure.save(): JSONObject {
         this is ColorConfigure -> this.save()
         this is BoolConfigure -> this.save()
         this is SliderConfigure -> this.save()
+        this is FileConfigure -> this.save()
         else -> baseSave(this)
     }
 }
@@ -35,4 +36,8 @@ fun SliderConfigure.save(): JSONObject {
         .put("max", max)
         .put("editable", editable)
         .put("type", "slider")
+}
+
+fun FileConfigure.save(): JSONObject {
+    return baseSave(this).put("type", "file")
 }
