@@ -84,6 +84,8 @@ class ConfigureManager(leader: Leader) : BaseManager<Leader>(leader) {
         listener.manager = this
         listener.applyUserProperties = { prop: dynamic ->
             for(configure in leader.project.configures) {
+                if(prop[configure.name] == undefined) continue
+                
                 var data = prop[configure.name].value
                 if(!dataMap.containsKey(configure.name) || dataMap[configure.name] != data) {
                     if(changeListeners.containsKey(configure.name)) {
