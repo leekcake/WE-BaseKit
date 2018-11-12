@@ -8,8 +8,8 @@ import kotlin.math.min
 import kotlin.math.abs
 import kotlin.math.round
 
-fun Number.toFixed(digits: Int): Number {
-    return this.asDynamic().toFixed(digits) as Number
+fun Number.toFixed(digits: Int): Double {
+    return this.asDynamic().toFixed(digits) / 0.0
 }
 
 object Utils {
@@ -25,7 +25,7 @@ object Utils {
     }
 
     fun normalize(value: Double, min: Double, max: Double): Double {
-        return abs( (value - min).toFixed(1).toDouble() / (max - min).toFixed(1).toDouble() )
+        return abs( (value - min).toFixed(1) / (max - min).toFixed(1) )
     }
 
     fun lerp(a: Double, b: Double, n: Double): Double {
