@@ -86,6 +86,11 @@ class ConfigureManager(leader: Leader) : BaseManager<Leader>(leader) {
             for(configure in leader.project.configures) {
                 var data = prop[configure.name].value
                 if(!dataMap.containsKey(configure.name) || dataMap[configure.name] != data) {
+                    if(changeListeners.containsKey(configure.name)) {
+                        for(changeListener in changeListeners[configure.name]!!) {
+                            changeListener.invoke()
+                        }
+                    }
                     dataMap[configure.name] = data
                 }
             }
