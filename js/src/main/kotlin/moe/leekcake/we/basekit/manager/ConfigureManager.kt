@@ -10,6 +10,14 @@ external fun decodeURI(encodedURI: dynamic): dynamic
 
 class ConfigureManager(leader: Leader) : BaseManager<Leader>(leader) {
     private val dataMap = HashMap<String, dynamic>()
+    private val changeListeners = HashMap<String, ArrayList<() -> Unit>>()
+
+    fun registerChangeListener(configure: Configure, listener: () -> Unit) {
+        if(!changeListeners.containsKey(configure.name)) {
+            changeListeners[configure.name] = ArrayList()
+        }
+        changeListeners[configure.name]!!.add(listener)
+    }
 
     fun getBoolConfigure(boolConfigure: BoolConfigure) : Boolean {
         if(!dataMap.containsKey(boolConfigure.name)) {
@@ -55,7 +63,10 @@ class ConfigureManager(leader: Leader) : BaseManager<Leader>(leader) {
         listener.manager = this
         listener.applyUserProperties = { prop: dynamic ->
             for(configure in leader.project.configures) {
-                dataMap[configure.name] = prop[configure.name].value
+                var data = prop[configure.name].value
+                if(!dataMap.containsKey(configure.name) || dataMap[configure.name] != data) {
+                    dataMap[configure.name] = data
+                }
             }
         }
         window.asDynamic().wallpaperPropertyListener = listener
