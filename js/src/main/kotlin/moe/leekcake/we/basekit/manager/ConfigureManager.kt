@@ -58,6 +58,20 @@ class ConfigureManager(leader: Leader) : BaseManager<Leader>(leader) {
         return "file:///${decodeURI(dataMap[fileConfigure.name])}"
     }
 
+    fun getIntComboBoxConfigure(intComboBoxConfigure: IntComboBoxConfigure) : Int {
+        if (!dataMap.containsKey(intComboBoxConfigure.name)) {
+            return intComboBoxConfigure.value
+        }
+        return dataMap[intComboBoxConfigure.name]
+    }
+
+    fun getStringComboBoxConfigure(stringComboBoxConfigure: StringComboBoxConfigure) : String {
+        if (!dataMap.containsKey(stringComboBoxConfigure.name)) {
+            return stringComboBoxConfigure.value
+        }
+        return dataMap[stringComboBoxConfigure.name]
+    }
+
     override fun init() {
         val listener = Any().asDynamic()
         listener.manager = this

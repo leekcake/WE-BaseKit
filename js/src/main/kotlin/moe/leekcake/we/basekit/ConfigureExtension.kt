@@ -39,3 +39,23 @@ fun FileConfigure.listen(leader: Leader, listener: (String) -> Unit) {
 fun FileConfigure.get(leader: Leader): String {
     return leader.configureManager.getFileConfigure(this)
 }
+
+fun IntComboBoxConfigure.listen(leader: Leader, listener: (Int) -> Unit) {
+    return leader.configureManager.registerChangeListener(this) {
+        listener.invoke(get(leader))
+    }
+}
+
+fun IntComboBoxConfigure.get(leader: Leader): Int {
+    return leader.configureManager.getIntComboBoxConfigure(this)
+}
+
+fun StringComboBoxConfigure.listen(leader: Leader, listener: (String) -> Unit) {
+    return leader.configureManager.registerChangeListener(this) {
+        listener.invoke(get(leader))
+    }
+}
+
+fun StringComboBoxConfigure.get(leader: Leader): String {
+    return leader.configureManager.getStringComboBoxConfigure(this)
+}

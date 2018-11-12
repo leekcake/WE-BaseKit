@@ -1,5 +1,6 @@
 package moe.leekcake.we.basekit
 
+import org.json.JSONArray
 import org.json.JSONObject
 
 fun colorIntToDouble(value: Int): Double {
@@ -16,6 +17,8 @@ fun Configure.save(): JSONObject {
         this is BoolConfigure -> this.save()
         this is SliderConfigure -> this.save()
         this is FileConfigure -> this.save()
+        this is IntComboBoxConfigure -> this.save()
+        this is StringComboBoxConfigure -> this.save()
         else -> baseSave(this)
     }
 }
@@ -40,4 +43,21 @@ fun SliderConfigure.save(): JSONObject {
 
 fun FileConfigure.save(): JSONObject {
     return baseSave(this).put("type", "file")
+}
+
+fun<T> comboBaseSave(jsonObject: JSONObject, comboBoxItems: Array<ComboBoxItem<T>>): JSONObject {
+    jsonObject.put("type", "combo")
+    val options = JSONArray()
+    for(item in comboBoxItems) {
+        options.put( JSONObject().put("value", item.value).put("label", item.label) )
+    }
+    return jsonObject
+}
+
+fun IntComboBoxConfigure.save(): JSONObject {
+    return comboBaseSave(baseSave(this), options)
+}
+
+fun StringComboBoxConfigure.save(): JSONObject {
+    return comboBaseSave(baseSave(this), options)
 }
