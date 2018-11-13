@@ -9,7 +9,7 @@ import kotlin.math.abs
 import kotlin.math.round
 
 fun Number.toFixed(digits: Int): Double {
-    return this.asDynamic().toFixed(digits) / 0.0
+    return this.asDynamic().toFixed(digits) / 1.0
 }
 
 object Utils {
