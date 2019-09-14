@@ -17,15 +17,18 @@ class AudioManager(leader: Leader) : BaseManager<Leader>(leader) {
         get() = ::latestAudioArray.isInitialized && ::audioArray.isInitialized
 
     override fun init() {
-        window.asDynamic().wallpaperRegisterAudioListener {
-                audio: dynamic ->
+        try {
+            window.asDynamic().wallpaperRegisterAudioListener { audio: dynamic ->
 
-            latestAudioArray = audio as Array<Double>
-            if(!audioArrayInited) {
-                audioArray = latestAudioArray
+                latestAudioArray = audio as Array<Double>
+                if (!audioArrayInited) {
+                    audioArray = latestAudioArray
+                }
+
+                Unit
             }
-
-            Unit
+        } catch (e : dynamic) {
+            println("Failed to init AudioManager, may be not using wallpaper engine?")
         }
     }
 
