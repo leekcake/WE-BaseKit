@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter
 import java.nio.charset.StandardCharsets
 
 
-class Builder(val project: Project) {
+class Builder(val project: Project, val moduleName: String) {
     fun build(outputDir: File) {
         outputDir.mkdirs()
 
@@ -49,5 +49,52 @@ class Builder(val project: Project) {
 
         val project = File(outputDir, "project.json")
         result.write(OutputStreamWriter(FileOutputStream(project), StandardCharsets.UTF_8)).close()
+
+        val index = File(outputDir, "index.html")
+        if( !index.exists() ) {
+            index.writeText(
+                "<html>\n" +
+                        "<head>\n" +
+                        "\n" +
+                        "<style>\n" +
+                        "html, body {\n" +
+                        "  width:  100%;\n" +
+                        "  height: 100%;\n" +
+                        "  margin: 0px;\n" +
+                        "  overflow:hidden;\n" +
+                        "}\n" +
+                        "#background {\n" +
+                        "  position: absolute;\n" +
+                        "  border:0;\n" +
+                        "  left: 0;\n" +
+                        "  top: 0;\n" +
+                        "  width:  100%;\n" +
+                        "  height: auto;\n" +
+                        "  margin: 0px;\n" +
+                        "  z-index: 0;\n" +
+                        "}\n" +
+                        "#mainCanvas {\n" +
+                        "  position: absolute;\n" +
+                        "  left: 0;\n" +
+                        "  top: 0;\n" +
+                        "  z-index: 1;\n" +
+                        "  width:  100%;\n" +
+                        "  height: auto;\n" +
+                        "  margin: 0px;\n" +
+                        "}\n" +
+                        "</style>\n" +
+                        "\n" +
+                        "<script type=\"text/javascript\" src=\"js/kotlin.js\"></script>\n" +
+                        "<script type=\"text/javascript\" src=\"js/WE-BaseKit-js.js\"></script>\n" +
+                        "<script type=\"text/javascript\" src=\"js/${moduleName}Js.js\"></script>\n" +
+                        "\n" +
+                        "</head>\n" +
+                        "<body>\n" +
+                        "<img id=\"background\" />\n" +
+                        "<canvas id=\"mainCanvas\" width=\"1280\" height=\"1024\"></canvas>\n" +
+                        "</body>\n" +
+                        "</html>"
+            )
+        }
     }
 }
